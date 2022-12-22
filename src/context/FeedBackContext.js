@@ -23,12 +23,6 @@ export const FeedBackProvider = ({ children }) => {
     setIsLoading(false);
   };
 
-  const deleteFeedback = id => {
-    if (window.confirm('Are you sure you want to delete?')) {
-      setFeedback(feedback.filter(item => item.id !== id));
-    }
-  };
-
   const addFeedback = async newFeedback => {
     const response = await fetch('/feedback', {
       method: 'POST',
@@ -40,6 +34,14 @@ export const FeedBackProvider = ({ children }) => {
     const data = await response.json();
 
     setFeedback([data, ...feedback]);
+  };
+
+  const deleteFeedback = async id => {
+    if (window.confirm('Are you sure you want to delete?')) {
+      await fetch(`/feedback/${id}`, { method: 'DELETE' });
+
+      setFeedback(feedback.filter(item => item.id !== id));
+    }
   };
 
   // update feedback item
