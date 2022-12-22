@@ -15,6 +15,13 @@ export const FeedBackProvider = ({ children }) => {
     fetchFeedback();
   }, []);
 
+  const handleResetFeedback = () => {
+    setFeedbackEdit({
+      item: {},
+      edit: false
+    });
+  };
+
   // Fetch feedback
   const fetchFeedback = async () => {
     const response = await fetch(`/feedback?_sort=id&_order=desc`);
@@ -74,7 +81,8 @@ export const FeedBackProvider = ({ children }) => {
         deleteFeedback,
         addFeedback,
         editFeedback,
-        updateFeedback
+        updateFeedback,
+        handleResetFeedback
       }}
     >
       {children}
